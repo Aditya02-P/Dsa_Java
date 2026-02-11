@@ -1,4 +1,4 @@
-public class Fibonacci {
+public class FibonacciItreative {
     public static void main(String[] args) {
         int fn = 0, sn = 1;
         int num = 10;
