@@ -1,6 +1,8 @@
+import java.util.Arrays;
+
 public class MergeSort {
     // Main function that sorts arr[l..r] using merge()
-    void sort(int[] arr, int l, int r) {
+    static void sort(int[] arr, int l, int r) {
         if (l < r) {
             // Find the middle point
             int m = l + (r - l) / 2;
@@ -14,7 +16,7 @@ public class MergeSort {
         }
     }
 
-    void merge(int arr[], int l, int m, int r) {
+    static void merge(int arr[], int l, int m, int r) {
         // Find sizes of two subarrays to be merged
         int n1 = m - l + 1;
         int n2 = r - m;
@@ -47,7 +49,8 @@ public class MergeSort {
     }
 
     public static void main(String[] args) {
-        int[] arr = {1,2,3,4,6,7,8,9};
-
+        int[] arr = {45,23,65,567,23,634,324,2342,12,12,334,1,23};
+        sort(arr, 0, arr.length - 1);
+        System.out.println(Arrays.toString(arr));
     }
 }
