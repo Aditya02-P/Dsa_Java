@@ -3,6 +3,7 @@ import java.util.Arrays;
 public class MergeSort {
     // Main function that sorts arr[l..r] using merge()
     static void sort(int[] arr, int l, int r) {
+        //time complexity bigO(nlogn)
         if (l < r) {
             // Find the middle point
             int m = l + (r - l) / 2;
