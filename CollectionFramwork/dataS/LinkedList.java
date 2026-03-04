@@ -9,17 +9,17 @@ public class LinkedList {
         this.next = null;
     }
 
-    public static LinkedList nodeAddress(LinkedList head,int index){
+    public static LinkedList nodeAddress(LinkedList node,int index){
         int count = 0;
-        while(head!=null && count<index){
-            head = head.next;
+        while(node!=null && count<index){
+            node = node.next;
             count++;
         }
-        if(head==null){
+        if(node==null){
             System.out.println("Index out of bounds");
             return null;
         }
-        return head;
+        return node;
     }
 
     public static LinkedList addFirst(LinkedList head, int data) {
@@ -197,6 +197,71 @@ public class LinkedList {
         }
         node.data=node.next.data;
         node.next=node.next.next;
+    }
+
+    public static LinkedList reverseLinkedList(LinkedList head) {
+        if (head == null || head.next == null) {
+            System.out.println("it runs");
+            return head;
+        }
+//        LinkedList prev=null;
+//        LinkedList curr=head;
+//        LinkedList next=head.next;
+//        while (next!=null){
+//            curr.next=prev;
+//            prev=curr;
+//            curr=next;
+//            next=next.next;
+//        }
+//        curr.next=prev;
+//        return curr;
+        LinkedList prev = null;
+        LinkedList curr = head;
+        LinkedList next = null;
+        while (curr != null) {
+            next = curr.next; // store next node
+            curr.next = prev;            // reverse link
+            prev = curr;                 // move prev forward
+            curr = next;                 // move curr forward
+        }
+
+        return prev;
+    }
+
+    public static LinkedList reverseLinkedListRecursive(LinkedList curr,LinkedList prev) {
+        if(curr==null){
+            return prev;
+        }
+        LinkedList next = curr.next;
+        curr.next = prev;
+        return reverseLinkedListRecursive(next,curr);
+    }
+
+    public static LinkedList findMiddleNode(LinkedList head) {
+
+        if (head == null || head.next == null) {
+            return head;
+        }
+        int count = 0;
+        LinkedList midPtr = head;
+        while(head!=null){
+            count++;
+            if(count%2==0){
+                midPtr = midPtr.next;
+            }
+            head = head.next;
+        }
+        return midPtr;
+        //it can be optimized by using slow fast pointer where the fast pointer moves twice the speed of slow pointer , it is essentially same as above but it avoids
+        //calculating the count%2 , if condition saving us cpu cycles making the calculation faster.
+        /*
+        LinkedList slow=head;
+        LinkedList fast=head;
+        while(fast!=null @@ fast.next==null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+         */
     }
 
 
