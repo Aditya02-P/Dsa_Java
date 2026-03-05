@@ -34,7 +34,7 @@ public class DataStructureImplements {
         LinkedList.printList(list4,4);
          */
 
-            int[] arr = {1,2,3,4,5,6};
+            int[] arr = {1,2,3,4,5,6,7,8,9};
             LinkedList list = LinkedList.arrToLinkedList(arr);
 //            LinkedList.printList(list,1);
 //            LinkedList.deleteNodeRecursive(list,2);
@@ -43,12 +43,15 @@ public class DataStructureImplements {
 //            LinkedList.deleteNodeWithoutHead(temp);
 //            LinkedList.printList(list,1);
 //        list=LinkedList.reverseLinkedList(list);
-        LinkedList.printList(list,1);
+//        LinkedList.printList(list,1);
 //        list = LinkedList.reverseLinkedListRecursive(list,null);
 //        LinkedList.printList(list,1);
-        LinkedList mid = LinkedList.findMiddleNode(list);
-        System.out.println("mid="+mid.data);
-
+//        LinkedList mid = LinkedList.findMiddleNode(list);
+//        System.out.println("mid="+mid.data);
+//        list = LinkedList.removeEveryKth(list,3);
+//        LinkedList.printList(list,1);
+          list = LinkedList.rotateList(list,3);
+          LinkedList.printList(list,1);
 
     }
 }

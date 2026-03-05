@@ -9,6 +9,18 @@ public class LinkedList {
         this.next = null;
     }
 
+    public static int listSize(LinkedList list) {
+        if (list == null) {
+            return 0;
+        }
+        int size = 0;
+        while (list != null) {
+            size++;
+            list = list.next;
+        }
+        return size;
+    }
+
     public static LinkedList nodeAddress(LinkedList node,int index){
         int count = 0;
         while(node!=null && count<index){
@@ -204,20 +216,24 @@ public class LinkedList {
             System.out.println("it runs");
             return head;
         }
-//        LinkedList prev=null;
-//        LinkedList curr=head;
-//        LinkedList next=head.next;
-//        while (next!=null){
-//            curr.next=prev;
-//            prev=curr;
-//            curr=next;
-//            next=next.next;
-//        }
-//        curr.next=prev;
-//        return curr;
+
+        /*
+        LinkedList prev=null;
+        LinkedList curr=head;
+        LinkedList next=head.next;
+        while (next!=null){
+            curr.next=prev;
+            prev=curr;
+            curr=next;
+            next=next.next;
+        }
+        curr.next=prev;
+        return curr;
+        */
+
         LinkedList prev = null;
         LinkedList curr = head;
-        LinkedList next = null;
+        LinkedList next;
         while (curr != null) {
             next = curr.next; // store next node
             curr.next = prev;            // reverse link
@@ -252,9 +268,8 @@ public class LinkedList {
             head = head.next;
         }
         return midPtr;
-        //it can be optimized by using slow fast pointer where the fast pointer moves twice the speed of slow pointer , it is essentially same as above but it avoids
-        //calculating the count%2 , if condition saving us cpu cycles making the calculation faster.
-        /*
+        /*it can be optimized by using slow fast pointer where the fast pointer moves twice the speed of slow pointer , it is essentially same as above but it avoids
+         calculating the count%2 , if condition saves us cpu cycles making the calculation faster.
         LinkedList slow=head;
         LinkedList fast=head;
         while(fast!=null @@ fast.next==null){
@@ -262,6 +277,138 @@ public class LinkedList {
             fast=fast.next.next;
         }
          */
+    }
+
+    public static LinkedList removeNthFromEnd(LinkedList head, int n) {
+        if(head==null){
+            return null;
+        }
+
+        LinkedList temp=head;
+        int nodes=0;
+        while(temp!=null){
+            nodes++;
+            temp=temp.next;
+        }
+
+        int toDelete=nodes-n;
+        if(toDelete==0){
+            return head.next;
+        }
+
+        LinkedList prev=null;
+        LinkedList curr=head;
+        while(toDelete!=0){
+            prev=curr;
+            curr=curr.next;
+            toDelete--;
+        }
+
+        prev.next=curr.next;
+        return head;
+    }
+
+    public static LinkedList removeEveryKth(LinkedList head, int k) {
+        //it's my approach of solving where i need to manually reset the counter every time a nodes get deleted.It can be optimized.
+        if(head==null || k==1 || k<=0){
+            return null;
+        }
+        int n=k-1;
+        LinkedList curr=head;
+        LinkedList prev;
+        while(curr!=null){
+            n--;
+            prev=curr;
+            curr=curr.next;
+            if(n==0){
+                prev.next=curr.next;
+                curr=prev.next;
+                n=k-1;
+            }
+        }
+        return head;
+
+        /*the optimized way
+        if (head == null || k <= 0) {
+            return head;
+        }
+
+        LinkedList curr = head;
+        LinkedList prev = null;
+        int count = 1;
+
+        while (curr != null) {
+            if (count % k == 0) {
+                prev.next = curr.next;
+            } else {
+                prev = curr;
+            }
+            curr = curr.next;
+            count++;
+        }
+
+        return head;
+         */
+
+    }
+
+    public static LinkedList rotateList(LinkedList head, int k) {
+        //this is the rwa pointer approach i thought what's happening in memory,it is not the safest or optimized , as it traverses the list 3 times
+
+        if(head==null){
+            return null;
+        }
+        LinkedList curr=head;
+        LinkedList prev=null;
+        int size = LinkedList.listSize(head);
+        int sec=size-k;
+        while(sec!=0){
+            prev=curr;
+            curr=curr.next;
+            sec--;
+        }
+        prev.next=null;
+        LinkedList temp=curr;
+        while(temp.next!=null){
+            temp=temp.next;
+        }
+        temp.next=head;
+        head=curr;
+        return head;
+        //the optimized approach
+
+        /*
+        public static LinkedList rotateList(LinkedList head, int k) {
+            if (head == null || head.next == null || k == 0) {
+                return head;
+            }
+
+            LinkedList tail = head;
+            int size = 1;
+            while (tail.next != null) {
+                tail = tail.next;
+                size++;
+            }
+
+            k = k % size;
+            if (k == 0) return head; // No rotation needed after modulo
+
+            tail.next = head;
+
+            int stepsToNewTail = size - k;
+            LinkedList newTail = tail; // Start from old tail to loop back to head
+            while (stepsToNewTail > 0) {
+                newTail = newTail.next;
+                stepsToNewTail--;
+            }
+
+            LinkedList newHead = newTail.next;
+            newTail.next = null;
+
+            return newHead;
+        }
+         */
+
     }
 
 
