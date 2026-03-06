@@ -4,7 +4,7 @@ public class DataStructureImplements {
     public static void main(String[] args) {
         //LinkedList
         /*
-        LinkedList head = null;
+         head = null;
         head = LinkedList.addLast(head, 0);
         head = LinkedList.addLast(head, 1);
         head = LinkedList.addLast(head, 2);
@@ -32,26 +32,42 @@ public class DataStructureImplements {
         LinkedList.printList(list4,4);
         list4=LinkedList.deleteAtIndex(list4,0);
         LinkedList.printList(list4,4);
+
+
+        int[] arr = {1,2,3,4,5,6,7,8,9};
+        LinkedList list = LinkedList.arrToLinkedList(arr);
+        LinkedList.printList(list,1);
+        LinkedList.deleteNodeRecursive(list,2);
+        LinkedList.printList(list,1);
+        LinkedList temp = LinkedList.nodeAddress(list,2);
+        LinkedList.deleteNodeWithoutHead(temp);
+        LinkedList.printList(list,1);
+        list=LinkedList.reverseLinkedList(list);
+        LinkedList.printList(list,1);
+        list = LinkedList.reverseLinkedListRecursive(list,null);
+        LinkedList.printList(list,1);
+        LinkedList mid = LinkedList.findMiddleNode(list);
+        System.out.println("mid="+mid.data);
+        list = LinkedList.removeEveryKth(list,3);
+        LinkedList.printList(list,1);
+      list = LinkedList.rotateList(list,3);
+      LinkedList.printList(list,1);
          */
 
-            int[] arr = {1,2,3,4,5,6,7,8,9};
-            LinkedList list = LinkedList.arrToLinkedList(arr);
-//            LinkedList.printList(list,1);
-//            LinkedList.deleteNodeRecursive(list,2);
-//            LinkedList.printList(list,1);
-//            LinkedList temp = LinkedList.nodeAddress(list,2);
-//            LinkedList.deleteNodeWithoutHead(temp);
-//            LinkedList.printList(list,1);
-//        list=LinkedList.reverseLinkedList(list);
-//        LinkedList.printList(list,1);
-//        list = LinkedList.reverseLinkedListRecursive(list,null);
-//        LinkedList.printList(list,1);
-//        LinkedList mid = LinkedList.findMiddleNode(list);
-//        System.out.println("mid="+mid.data);
-//        list = LinkedList.removeEveryKth(list,3);
-//        LinkedList.printList(list,1);
-          list = LinkedList.rotateList(list,3);
-          LinkedList.printList(list,1);
+        //Doubly LinkedList
+        DoublyLinkedList list ;
+        int[]arr={1,3,4,5};
+//        list=DoublyLinkedList.arrToDLinkedList(arr);
+//        DoublyLinkedList.display(list);
+//        list=DoublyLinkedList.reverse(list);
+//        DoublyLinkedList.display(list);
+        list=DoublyLinkedList.arrToDLinkedListRecursive(arr);
+//        DoublyLinkedList.display(list);
+        list = DoublyLinkedList.addAtIndex(list,2,2);
+        DoublyLinkedList.display(list);
+
+
+
 
     }
 }
