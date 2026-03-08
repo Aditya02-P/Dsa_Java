@@ -160,16 +160,14 @@ public class DoublyLinkedList {
         this.next = null;
     }
 
-    public static void display(DoublyLinkedList list) {
+    public static void displayDL(DoublyLinkedList list) {
         if (list == null) {
             System.out.println("list is null");
-            return;
         }
         while (list != null) {
             System.out.print(list.data + " ");
             list = list.next;
         }
-        System.out.println();
     }
 
     public static DoublyLinkedList addFirst(DoublyLinkedList head, int data) {
@@ -307,7 +305,6 @@ public class DoublyLinkedList {
     }
 
     private static DoublyLinkedList recursiveArrToDLLMethod(int[] arr, int index, DoublyLinkedList prev) {
-        // Simplified the base case to be slightly cleaner
         if (index == arr.length) {
             return null;
         }

@@ -54,17 +54,39 @@ public class DataStructureImplements {
       LinkedList.printList(list,1);
          */
 
-        //Doubly LinkedList
+        /*
+        Doubly LinkedList
+
         DoublyLinkedList list ;
         int[]arr={1,3,4,5};
-//        list=DoublyLinkedList.arrToDLinkedList(arr);
-//        DoublyLinkedList.display(list);
-//        list=DoublyLinkedList.reverse(list);
-//        DoublyLinkedList.display(list);
+        list=DoublyLinkedList.arrToDLinkedList(arr);
+        DoublyLinkedList.display(list);
+        list=DoublyLinkedList.reverse(list);
+        DoublyLinkedList.display(list);
         list=DoublyLinkedList.arrToDLinkedListRecursive(arr);
-//        DoublyLinkedList.display(list);
+        DoublyLinkedList.display(list);
         list = DoublyLinkedList.addAtIndex(list,2,2);
         DoublyLinkedList.display(list);
+
+        LinkedList list = LinkedList.arrToLinkedList(new int[] {2,2,2,3,4,4});
+        list=LinkedList.removeDuplicates(list);
+        LinkedList.display(list);
+
+        LinkedList list1= LinkedList.arrToLinkedList(new int[] {1,2,3,4,5});
+        LinkedList list2= LinkedList.arrToLinkedList(new int[] {5,6,7,8,9});
+        LinkedList list3 = LinkedList.mergeSortedList(list1,list2);
+        LinkedList.display(list3);
+        LinkedList list1 = LinkedList.arrToLinkedList(new int[] {1,2,6,3,4,5,6});
+        LinkedList list2 = LinkedList.removeElements(list1,6);
+        LinkedList.display(list2);
+
+         */
+        //Circular Singly Linked List
+        CircularLL list1 = CircularLL.arrToCircularLL(new int[]{1,2,3,4,5});
+        CircularLL.display(list1);
+        list1=CircularLL.addFirst(list1,1);
+        CircularLL.display(list1);
+
 
 
 

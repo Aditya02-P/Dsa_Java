@@ -9,6 +9,18 @@ public class LinkedList {
         this.next = null;
     }
 
+    public static void display(LinkedList list) {
+        if (list == null) {
+            System.out.println("list is null");
+            return;
+        }
+        while (list != null) {
+            System.out.print(list.data + " ");
+            list = list.next;
+        }
+        System.out.println();
+    }
+
     public static int listSize(LinkedList list) {
         if (list == null) {
             return 0;
@@ -411,7 +423,99 @@ public class LinkedList {
 
     }
 
+    public static LinkedList removeDuplicates(LinkedList head) {
+        if(head==null || head.next==null){
+            return head;
+        }
+        LinkedList curr=head.next;
+        LinkedList prev=head;
+        while(curr!=null){
+            if(curr.data==prev.data){
+                prev.next=curr.next;
+                curr=curr.next;
+            }
+            else {
+                prev=curr;
+                curr=curr.next;
+            }
+        }
+        return head;
+    }
 
+    public static LinkedList mergeSortedList(LinkedList head1,LinkedList head2){
+        if(head1==null || head2==null){
+            return head1;
+        }
+        LinkedList dummy = new LinkedList(0);
+        LinkedList curr=dummy;
+        while (head1!=null && head2!=null){
+            if(head1.data<=head2.data){
+                curr.next=head1;
+                head1=head1.next;
+            }else {
+                curr.next=head2;
+                head2=head2.next;
+            }
+            curr=curr.next;
+        }
+        if (head1 != null) {
+            curr.next = head1;
+        } else {
+            curr.next = head2;
+        }
+        return dummy.next;
+    }
+
+    public static LinkedList removeElements(LinkedList head, int val) {
+        if(head==null || (head.next==null && head.data==val)){
+            return null;
+        }
+        while(head.data==val){
+            head=head.next;
+        }
+        LinkedList curr=head;
+        LinkedList prev=null;
+        while(curr!=null){
+            if(curr.data==val){
+                prev.next=curr.next;
+            }
+            else {
+                prev=curr;
+            }
+            curr=curr.next;
+        }
+        return head;
+    }
+
+    public static boolean checkPalindrome(LinkedList head) {
+        if (head == null || head.next == null) return true;
+
+        LinkedList slow = head;
+        LinkedList fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        LinkedList prev = null;
+        LinkedList curr = slow;
+        while (curr != null) {
+            LinkedList nextTemp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextTemp;
+        }
+
+        LinkedList firstHalf = head;
+        LinkedList secondHalf = prev;
+        while (secondHalf != null) {
+            if (firstHalf.data != secondHalf.data) return false;
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+
+        return true;
+    }
 
 
 }
