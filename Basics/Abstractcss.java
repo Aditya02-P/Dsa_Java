@@ -15,7 +15,7 @@ class Car2 extends Car{
 public class Abstractcss {
     public static void main(String[] args) {
         Car c1= new Car2();
-        Car c2 = new Car();
+//        Car c2 = new Car();
         c1.start();
     }
 
