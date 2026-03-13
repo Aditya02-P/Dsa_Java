@@ -1,5 +1,4 @@
 package dataS;
-
 public class DataStructureImplements {
     public static void main(String[] args) {
         //LinkedList
@@ -82,10 +81,42 @@ public class DataStructureImplements {
 
          */
         //Circular Singly Linked List
-        CircularLL list1 = CircularLL.arrToCircularLL(new int[]{1,2,3,4,5});
-        CircularLL.display(list1);
-        list1=CircularLL.addFirst(list1,1);
-        CircularLL.display(list1);
+//        CircularLL list1 = CircularLL.arrToCircularLL(new int[]{1,2,3,4,5});
+//        CircularLL.display(list1);
+//        list1=CircularLL.addFirst(list1,1);
+//        CircularLL.display(list1);
+/*
+        LinkedList head = new LinkedList(10);
+        LinkedList second = new LinkedList(20);
+        LinkedList third = new LinkedList(30);
+        LinkedList fourth = new LinkedList(40);
+
+        // 2. Connect the "dots" linearly
+        // 10 -> 20 -> 30 -> 40 -> null
+        head.next = second;
+        second.next = third;
+        third.next = fourth;
+        fourth.next = second;
+
+ */
+
+//        boolean flag = LinkedList.detectLoop(head);
+//        if (LinkedList.detectLoop2(head)) {
+//            System.out.println("Loop found");
+//        }
+//        else{
+//            System.out.println("Loop not found");
+//        }
+//
+//        int len = LinkedList.findLoopLength(head);
+//        System.out.println(len);
+
+        LinkedList list1=LinkedList.arrToLinkedList(new int[]{9,7,6,8,4});
+//        LinkedList list2=LinkedList.arrToLinkedList(new int[]{  6,4,3,8});
+//        LinkedList ans = LinkedList.addTwoLLNUM(list1,list2);
+//        LinkedList.display(ans);
+        list1=LinkedList.reverseInKGroup(list1,3);
+        LinkedList.display(list1);
 
 
 

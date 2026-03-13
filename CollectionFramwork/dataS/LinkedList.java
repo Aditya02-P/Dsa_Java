@@ -1,5 +1,6 @@
 package dataS;
-
+import java.util.ArrayList;
+import java.util.HashMap;
 public class LinkedList {
     int data;
     LinkedList next;
@@ -517,5 +518,184 @@ public class LinkedList {
         return true;
     }
 
+    //below are some implementation of some dsa question
+
+    public static boolean detectLoop(LinkedList head) {
+        if (head == null || head.next == null) return false;
+        /*
+        the commented approach has a time complexity of BigOh(n2)
+        ArrayList<LinkedList> list=new ArrayList<LinkedList>();
+        LinkedList curr=head;
+        while (curr!=null){
+            if(checkVisited(curr,list)){
+                return true;
+            }
+            list.add(curr);
+            curr=curr.next;
+        }
+        return false;
+
+         */
+
+        //the below approach reduces the time complexity to BIgOh(n) by using hashmap for faster check if a node is visited
+
+        HashMap<LinkedList, Boolean> map = new HashMap<>();
+        LinkedList curr = head;
+        while (curr != null) {
+            if(map.getOrDefault(curr, false)) {
+                return true;
+            }
+            map.put(curr,true);
+            curr = curr.next;
+        }
+        return false;
+    }
+/*
+    public static boolean checkVisited(LinkedList cPtr,ArrayList<LinkedList> list){
+        for (LinkedList curr : list) {
+            if (curr== cPtr) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+ */
+
+    //another approach to solve it at space complexity of 1 is using slow fast pointer approach
+
+    public static boolean detectLoop2(LinkedList head) {
+        if (head == null || head.next == null) return false;
+        LinkedList slow = head;
+        LinkedList fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast)
+                return true;
+        }
+        return false;
+    }
+
+    public static int findLoopLength(LinkedList head) {
+        if (head == null || head.next == null) return 0;
+        LinkedList slow = head;
+        LinkedList fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast)
+                break;
+        }
+        int length = 1;
+        while (slow != fast) {
+            slow = slow.next;
+            length++;
+        }
+        return length;
+    }
+
+    public static LinkedList addTwoLLNUM(LinkedList head1, LinkedList head2) {
+        if(head1 == null){
+            return head2;
+        }
+        else if(head2==null){
+            return head1;
+        }
+        LinkedList ans = null;
+        head1 = LinkedList.reverseLinkedList(head1);
+        head2 = LinkedList.reverseLinkedList(head2);
+        int sum=0,carry=0,csum=0;
+        while(head1!=null&&head2!=null){
+            csum=head1.data+head2.data+carry;
+            carry=csum/10;
+            sum=csum%10;
+            head1=head1.next;
+            head2=head2.next;
+            ans=LinkedList.addFirst(ans,sum);
+        }
+        while(head1!=null){
+            csum=head1.data+carry;
+            carry=csum/10;
+            sum=csum%10;
+            head1=head1.next;
+            ans=LinkedList.addFirst(ans,sum);
+        }
+        while(head2!=null){
+            csum=head2.data+carry;
+            carry=csum/10;
+            sum=csum%10;
+            head2=head2.next;
+            ans=LinkedList.addFirst(ans,sum);
+        }
+        if(carry!=0){
+            ans=LinkedList.addFirst(ans,carry);
+        }
+        return ans;
+    }
+
+    public static LinkedList addTwoLLNUMOptimizzed(LinkedList head1, LinkedList head2) {
+        LinkedList ans = null;
+
+        // Reverse lists to align the least significant digits
+        head1 = LinkedList.reverseLinkedList(head1);
+        head2 = LinkedList.reverseLinkedList(head2);
+
+        int carry = 0;
+
+        // Continue as long as there is a node in EITHER list, OR a carry leftover
+        while (head1 != null || head2 != null || carry > 0) {
+            // If a list is exhausted, use 0 as the value
+            int val1 = (head1 != null) ? head1.data : 0;
+            int val2 = (head2 != null) ? head2.data : 0;
+
+            int csum = val1 + val2 + carry;
+            carry = csum / 10;
+            int sum = csum % 10;
+
+            ans = LinkedList.addFirst(ans, sum);
+
+            // Move to the next nodes if they exist
+            if (head1 != null) head1 = head1.next;
+            if (head2 != null) head2 = head2.next;
+        }
+
+        return ans;
+    }
+
+    private static LinkedList findKthOrLast(LinkedList curr, int k) {
+
+        while(curr.next!=null && k>0){
+            curr=curr.next;
+            k--;
+        }
+        System.out.println("Got it");
+        return curr;
+    }
+
+    public static LinkedList reverseInKGroup(LinkedList head, int k) {
+        if (head == null || head.next == null   ) return head;
+        LinkedList dummy = new LinkedList(0);
+        dummy.next = head;
+        LinkedList grpP=dummy;
+        while (grpP.next != null){
+            LinkedList kth= findKthOrLast(grpP,k);
+            LinkedList grpS=grpP.next;
+            LinkedList grpN=kth.next;
+
+            LinkedList prev = grpN;
+            LinkedList curr = grpS;
+
+            while (curr != grpN) {
+                LinkedList nextTemp = curr.next;
+                curr.next = prev;
+                prev = curr;
+                curr = nextTemp;
+            }
+            grpP.next = kth;
+            grpP=grpS;
+        }
+        return dummy.next;
+    }
 
 }

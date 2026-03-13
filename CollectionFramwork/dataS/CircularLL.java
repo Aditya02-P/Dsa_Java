@@ -4,10 +4,17 @@
     public class CircularLL {
         int data;
         CircularLL next;
+        CircularLL tail;
         public CircularLL(int data)
         {
             this.data=data;
             next=null;
+        }
+        /*
+        public static CircularLL ifNull(int data) {
+            CircularLL newHead=new CircularLL(data);
+            newHead.next=newHead;
+            return newHead;
         }
 
         public static void display(CircularLL head) {
@@ -23,6 +30,34 @@
             System.out.println();
         }
 
+        public static CircularLL addFirst(CircularLL head,int data) {
+            if(head==null){
+                return ifNull(data);
+            }
+            CircularLL newNode=new CircularLL(data);
+            CircularLL temp=head;
+            while(temp.next!=head){
+                temp=temp.next;
+            }
+            newNode.next=head;
+            temp.next=newNode;
+            return newNode;
+        }
+
+        public static CircularLL addLast(CircularLL head,int data) {
+            if(head==null){
+              return ifNull(data);
+            }
+            CircularLL newNode=new CircularLL(data);
+            CircularLL temp=head;
+            while(temp.next!=head){
+                temp=temp.next;
+            }
+            newNode.next=head;
+            temp.next=newNode;
+            return head;
+        }
+        */
         public static CircularLL arrToCircularLL(int[] arr) {
             if (arr == null || arr.length == 0) return null;
             if (arr.length == 1) {
@@ -46,37 +81,8 @@
             return head;
         }
 
-        public static CircularLL addFirst(CircularLL head,int data) {
-            if(head==null){
-                CircularLL newHead=new CircularLL(data);
-                newHead.next=newHead;
-                return newHead;
-            }
-            CircularLL newNode=new CircularLL(data);
-            CircularLL temp=head;
-            while(temp.next!=head){
-                temp=temp.next;
-            }
-            newNode.next=head;
-            temp.next=newNode;
-            return newNode;
-        }
+//        public static CircularLL addFirst(C)
 
-        public static CircularLL addLast(CircularLL head,int data) {
-            if(head==null){
-                CircularLL newHead=new CircularLL(data);
-                newHead.next=newHead;
-                return newHead;
-            }
-            CircularLL newNode=new CircularLL(data);
-            CircularLL temp=head;
-            while(temp.next!=head){
-                temp=temp.next;
-            }
-            newNode.next=head;
-            temp.next=newNode;
-            return head;
-        }
 
 
 
