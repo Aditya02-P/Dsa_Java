@@ -1,4 +1,5 @@
 package dataS;
+
 public class DataStructureImplements {
     public static void main(String[] args) {
         //LinkedList
@@ -111,14 +112,33 @@ public class DataStructureImplements {
 //        int len = LinkedList.findLoopLength(head);
 //        System.out.println(len);
 
-        LinkedList list1=LinkedList.arrToLinkedList(new int[]{9,7,6,8,4});
+//        LinkedList list1=LinkedList.arrToLinkedList(new int[]{9,7,6,8,4});
 //        LinkedList list2=LinkedList.arrToLinkedList(new int[]{  6,4,3,8});
 //        LinkedList ans = LinkedList.addTwoLLNUM(list1,list2);
 //        LinkedList.display(ans);
-        list1=LinkedList.reverseInKGroup(list1,3);
-        LinkedList.display(list1);
+//        list1=LinkedList.reverseInKGroup(list1,3);
+//        LinkedList.display(list1);
 
+        LinkedList[] sortedHeads = new LinkedList[8];
 
+// 2. Create 8 sorted arrays to be converted
+        int[][] dataSources = {
+                {1, 3, 5, 7},
+                {2, 4, 6, 8},
+                {10, 20, 30},
+                {15, 25, 35},
+                {5, 15, 25},
+                {0, 1, 2},
+                {100, 200},
+                {7, 14, 21, 28}
+        };
+
+// 3. Populate the array by calling your method for each data source
+        for (int i = 0; i < 8; i++) {
+            sortedHeads[i] = LinkedList.arrToLinkedList(dataSources[i]);
+        }
+        LinkedList merged = LinkedList.mergeKSortedList2(sortedHeads);
+        LinkedList.display(merged);
 
 
 

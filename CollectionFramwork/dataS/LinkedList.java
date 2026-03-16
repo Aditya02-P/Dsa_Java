@@ -698,4 +698,29 @@ public class LinkedList {
         return dummy.next;
     }
 
+    public static LinkedList mergeKSortedList(LinkedList[]arr){
+        if(arr==null || arr.length==0) return null;
+        if(arr.length==1) return arr[0];
+        for(int i=1;i<arr.length;i++){
+            arr[i]=mergeSortedList(arr[i-1],arr[i]);
+        }
+        return arr[arr.length-1];
+    }
+
+    public static LinkedList mergeKSortedList2(LinkedList[] arr) {
+        if (arr == null || arr.length == 0) return null;
+        return divideAndConquer(arr, 0, arr.length - 1);
+    }
+
+    private static LinkedList divideAndConquer(LinkedList[] arr, int start, int end) {
+        if (start == end) return arr[start];
+
+        int mid = start + (end - start) / 2;
+        System.out.println(mid);
+        LinkedList left = divideAndConquer(arr, start, mid);
+        LinkedList right = divideAndConquer(arr, mid + 1, end);
+
+        return mergeSortedList(left, right);
+    }
+
 }
