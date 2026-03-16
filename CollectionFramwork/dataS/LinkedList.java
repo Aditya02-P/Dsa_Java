@@ -10,6 +10,9 @@ public class LinkedList {
         this.next = null;
     }
 
+    public LinkedList() {
+    }
+
     public static void display(LinkedList list) {
         if (list == null) {
             System.out.println("list is null");
