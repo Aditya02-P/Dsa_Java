@@ -1,5 +1,8 @@
 package dataS;
 
+import java.util.*;
+
+/*
 class StackI{
     private int top;
     private int [] arr;
@@ -40,7 +43,6 @@ class StackI{
         return this.top == this.arr.length-1;
     }
 }
-/*
      This is a dumb first implementation of Stack using LinkedList. Though there are several issues i tried to
      implement the stack by extending LinkedList,it worked but there are several issues.Like
      1. Stack is not a LinkedList, but it's extended.
@@ -48,7 +50,6 @@ class StackI{
      3.Other architectural issues which is not being handled .
 
      The better approach is written below.
-
 
 
 class StackLL extends LinkedList{
@@ -102,6 +103,8 @@ class StackLL extends LinkedList{
  */
 
 
+
+/*
 class Node {
     int data;
     Node next;
@@ -137,14 +140,132 @@ class StackLL {
         return top == null;
     }
 }
+*/
+
+
 
 public class StackImplementation {
+
+    public static void reverseArray(Stack<Integer> stack , int[] arr) {
+        if(arr.length == 0) {
+            System.out.println("Array is empty");
+            return;
+        }
+        for(int i : arr) {
+            stack.push(i);
+        }
+        int i =0;
+        while (!stack.isEmpty()) {
+            arr[i] = stack.pop();
+            i++;
+        }
+    }
+
+    public static void insertAtBottom(Stack<Integer> stack, int data) {
+        if(stack.isEmpty()) {
+            stack.push(data);
+        }
+       Stack<Integer> temp = new Stack<>();
+        while(!stack.isEmpty()) {
+            temp.push(stack.pop());
+        }
+        stack.push(data);
+        while(!temp.isEmpty()) {
+            stack.push(temp.pop());
+        }
+
+    }
+
+    public static Stack<Integer> arrToStack(int[]arr) {
+        Stack<Integer> stack = new Stack<>();
+        for(int i : arr) {
+            stack.push(i);
+        }
+        return stack;
+
+    }
+
+    public static ArrayList<Integer> beautifyArray(int[] arr) {
+        Stack<Integer> stack = new Stack<>();
+        for(int i : arr) {
+            if (stack.isEmpty() || (stack.peek() >= 0 == i >= 0)) {
+                stack.push(i);
+            } else {
+                stack.pop();
+            }
+        }
+        ArrayList<Integer> list = new ArrayList<>();
+        while(!stack.isEmpty()) {
+            list.add(stack.pop());
+        }
+        Collections.reverse(list);
+        return list;
+    }
+
+    public static boolean validParentheses(String str) {
+        Stack<Character> stack = new Stack<>();
+        for(int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if(ch == '('){
+                stack.push(ch);
+            }
+            else if(ch == ')'){
+              if(stack.isEmpty()){
+                  return false;
+              }
+              stack.pop();
+            }
+            else{
+                break;
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    public static void minParenthesesValid(String str) {
+        int openNeeded = 0;  // Brackets we need to add at the start
+        int balance = 0;     // Current net open brackets
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if (ch == '(') {
+                balance++;
+            } else {
+                if (balance > 0) {
+                    balance--; // Match an existing open bracket
+                } else {
+                    openNeeded++; // Found a ')' with no '(' to match it
+                }
+            }
+        }
+
+        if (openNeeded == 0 && balance == 0) {
+            System.out.println(str + " is a valid parentheses string.");
+        } else {
+            System.out.println("Additions required:");
+            System.out.println("- Open brackets needed: " + openNeeded);
+            System.out.println("- Close brackets needed: " + balance);
+        }
+    }
+
+    public static void displayStack(Stack<Integer> stack) {
+        while(!stack.isEmpty()) {
+            System.out.println(stack.pop());
+        }
+        System.out.println("The stack has become empty after displaying");
+    }
     public static void main(String[] args) {
-        StackI stack = new StackI(10);
-        stack.push(1);
-        stack.push(2);
-        System.out.println(stack.pop());
-        System.out.println(stack.peek());
+//        Stack<Integer> stack = new Stack<>();
+//        int[] arr = {1, 2, 3, 4, 5};
+//        reverseArray(stack, arr);
+//        System.out.println(Arrays.toString(arr));
+//        Stack<Integer> stack2 = arrToStack(arr);
+//        insertAtBottom(stack2, 5);
+//        displayStack(stack2);
+//        ArrayList <Integer> list = beautifyArray(new int[]{2,3,5,-4,6,-2,-8,9});
+//        System.out.println(list);
+//        System.out.println(validParentheses(")("));
+        minParenthesesValid("(())))");
 
     }
 }
