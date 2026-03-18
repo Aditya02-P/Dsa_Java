@@ -248,6 +248,176 @@ public class StackImplementation {
         }
     }
 
+
+    public static boolean validParentheses2(String str) {
+        if (str.isEmpty()) {
+            return true;
+        }
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if (ch == '(' || ch == '[' || ch == '{') {
+                stack.push(ch);
+            }
+            else {
+                if (stack.isEmpty()) {
+                    return false;
+                } else if (ch == ')' && stack.peek() == '(') {
+                    stack.pop();
+                } else if (ch == ']' && stack.peek() == '[') {
+                    stack.pop();
+                } else if (ch == '}' && stack.peek() == '{') {
+                    stack.pop();
+                } else {
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    public static boolean validParentheses3(String str) {
+        Stack<Character> stack = new Stack<>();
+        HashMap<Character, Character> map = new HashMap<>();
+        map.put(')', '(');
+        map.put(']', '[');
+        map.put('}', '{');
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if (map.containsKey(ch)) {
+                char top= stack.isEmpty() ? '#' : stack.pop();
+                if (top != map.get(ch)) {
+                    return false;
+                }
+            } else if (map.containsValue(ch)) {
+                stack.push(ch);
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    public static boolean backStrCheck(String s1, String s2) {
+        Stack<Character> stack1 = new Stack<>();
+        Stack<Character> stack2 = new Stack<>();
+        String s1f=pushValid(s1, stack1);
+        String s2f=pushValid(s2, stack2);
+        return s1f.equals(s2f);
+    }
+
+    private static String  pushValid(String s, Stack<Character> stack) {
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (ch == '#') {
+                if (!stack.isEmpty()) {
+                    stack.pop();
+                }
+            } else {
+                stack.push(ch);
+            }
+        }
+        return stack.toString();
+    }
+
+    /*
+    In the below implementation there is an edge case where if number of opening brackets are more it's not throwing an error.So the correct implementation i need to
+    throw an error if there are more opening brackets.
+    ->It can be solved by checking if the stack is empty or not after the loop finishes , in the below implementation it can't be done as i am printing the char on the go.
+    so the corrected implementation is right after this commented code.
+
+    public static void printBracketNum(String s){
+        int count=1;
+        Stack<Integer> stack = new Stack<>();
+        for(int i=0;i<s.length();i++){
+            char ch = s.charAt(i);
+            if(ch==')'){
+                if(!stack.isEmpty()){
+                    System.out.print(stack.pop());
+                }
+                else {
+                    System.out.println("Invalid bracket");
+                    return;
+                }
+            }else if(ch=='('){
+                System.out.print(count);
+                stack.push(count++);
+            }
+            else{
+                System.out.print(ch);
+            }
+        }
+    }
+
+
+    }
+
+     */
+
+
+    public static String getBracketNum(String s) {
+        int count = 1;
+        // Using the modern, faster Deque instead of the legacy Stack
+        Stack<Integer> stack = new Stack<>();
+
+        // StringBuilder is highly efficient for appending characters in a loop
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+
+            if (ch == '(') {
+                result.append(count);
+                stack.push(count++);
+            }
+            else if (ch == ')') {
+                if (!stack.isEmpty()) {
+                    result.append(stack.pop());
+                } else {
+                    return "Invalid bracket"; // Caught an extra closing bracket
+                }
+            }
+            else {
+                result.append(ch);
+            }
+        }
+
+        // Edge Case Fix: Were any opening brackets left unclosed?
+        if (!stack.isEmpty()) {
+            return "Invalid bracket";
+        }
+
+        return result.toString();
+    }
+
+    public static void printMinPop(int[] arr) {
+        // Use separate stacks for each call to ensure they start empty
+        Stack<Integer> mainstack = new Stack<>();
+        Stack<Integer> minstack = new Stack<>();
+
+        for (int j : arr) {
+            mainstack.push(j);
+            if (minstack.isEmpty() || j <= minstack.peek()) {
+                minstack.push(j);
+            }
+        }
+
+        while (!mainstack.isEmpty()) {
+            // 1. The current minimum is always safely at the top of minstack
+            int currentMin = minstack.peek();
+
+            // 2. Remove the top element from the main stack
+            int poppedValue = mainstack.pop();
+
+            System.out.println("Popped: " + poppedValue + " | Minimum was: " + currentMin);
+
+            if (poppedValue == currentMin) {
+                minstack.pop();
+            }
+        }
+    }
+
+
+
+
     public static void displayStack(Stack<Integer> stack) {
         while(!stack.isEmpty()) {
             System.out.println(stack.pop());
@@ -265,7 +435,11 @@ public class StackImplementation {
 //        ArrayList <Integer> list = beautifyArray(new int[]{2,3,5,-4,6,-2,-8,9});
 //        System.out.println(list);
 //        System.out.println(validParentheses(")("));
-        minParenthesesValid("(())))");
-
+//        minParenthesesValid("(())))");
+//        System.out.println(validParentheses3("[[{}{}]]]"));
+//        System.out.println(backStrCheck("ab#c#","ad#c#f"));
+//        printBracketNum("(abcd(ef)gh)");
+//        System.out.println(getBracketNum("(abcd(ef)gh)"));
+        printMinPop(new int[]{2,3,5,1,4,0,7,8,9});
     }
 }
