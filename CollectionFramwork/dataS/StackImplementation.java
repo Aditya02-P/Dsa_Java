@@ -144,7 +144,7 @@ class StackLL {
 
 
 
-public class StackImplementation {
+public class StackImplementation  {
 
     public static void reverseArray(Stack<Integer> stack , int[] arr) {
         if(arr.length == 0) {
@@ -415,7 +415,102 @@ public class StackImplementation {
         }
     }
 
+    public static int[] nextGreaterElement(int[] arr) {
+        int[]res = new int[arr.length];
+        ngeSB(res,arr);
+        return res;
+    }
 
+    private static void ngeSB(int[] res,int[] arr){
+        Stack<Integer> stack = new Stack<>();
+        for(int i=0;i<arr.length ;i++){
+            while(!stack.isEmpty() && (arr[stack.peek()]<arr[i])) {
+                res[stack.peek()]=arr[i];
+                stack.pop();
+            }
+            res[i]=-1;
+            stack.push(i);
+        }
+    }
+
+    public static int[] nextSmallerElement(int[] arr) {
+        int[]res = new int[arr.length];
+        nseSB(res,arr);
+        return res;
+    }
+
+    private static void nseSB(int[] res,int[] arr){
+        Stack<Integer> stack = new Stack<>();
+        for(int i=0;i<arr.length;i++){
+            while(!stack.isEmpty() && (arr[stack.peek()]>=arr[i])) {
+                res[stack.peek()]=arr[i];
+                stack.pop();
+            }
+            stack.push(i);
+        }
+    }
+
+    public static int[] nextSmallerFromLeftElement(int[] arr) {
+        int[]res = new int[arr.length];
+        nseleftSB(res,arr);
+        return res;
+    }
+
+    private static void nseleftSB(int[] res,int[] arr){
+        /*This implementation checks literally from left, though it's correct we have to change the logic which differs from the above logic.
+        We can use the above logic to solve this question also, we just need to check the array from behind rather than start.
+        Stack<Integer> stack = new Stack<>();
+        for(int i=0;i<arr.length;i++){
+            while(!stack.isEmpty() && (stack.peek()>arr[i])) {
+                stack.pop();
+            }
+            if(!stack.isEmpty()){
+            res[i]=stack.peek();
+            }
+            stack.push(arr[i]);
+        }
+         */
+        Stack<Integer> stack = new Stack<>();
+        for(int i=arr.length-1;i>=0;i--){
+            while(!stack.isEmpty() && (arr[i]<arr[stack.peek()])){
+                res[stack.peek()]=arr[i];
+                stack.pop();
+            }
+            stack.push(i);
+        }
+    }
+
+    public static int[] stockSpan(int[] prices) {
+        int n = prices.length;
+        int[] spans = new int[n];
+        // The stack stores indices of the days, not the actual prices
+        Stack<Integer> stack = new Stack<>();
+
+        // The span of the very first day is always 1
+        spans[0] = 1;
+        stack.push(0);
+
+        // Process the rest of the days
+        for (int i = 1; i < n; i++) {
+            // Remove indices of days with prices less than or equal to the current day
+            while (!stack.isEmpty() && prices[stack.peek()] <= prices[i]) {
+                stack.pop();
+            }
+
+            // If stack becomes empty, then prices[i] is greater than all elements to its left
+            if (stack.isEmpty()) {
+                spans[i] = i + 1;
+            } else {
+                // prices[i] is greater than the elements after the top of the stack
+                spans[i] = i - stack.peek();
+            }
+
+            // Push this element's index to stack to be evaluated for future days
+            stack.push(i);
+        }
+
+        return spans;
+    }
 
 
     public static void displayStack(Stack<Integer> stack) {
@@ -424,7 +519,7 @@ public class StackImplementation {
         }
         System.out.println("The stack has become empty after displaying");
     }
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
 //        Stack<Integer> stack = new Stack<>();
 //        int[] arr = {1, 2, 3, 4, 5};
 //        reverseArray(stack, arr);
@@ -440,6 +535,17 @@ public class StackImplementation {
 //        System.out.println(backStrCheck("ab#c#","ad#c#f"));
 //        printBracketNum("(abcd(ef)gh)");
 //        System.out.println(getBracketNum("(abcd(ef)gh)"));
-        printMinPop(new int[]{2,3,5,1,4,0,7,8,9});
+//        printMinPop(new int[]{2,3,5,1,4,0,7,8,9});
+//        int[]arr={7,9,12,10,14,8,3,6,9};
+//        int[] res=nextGreaterElement(arr);
+//        System.out.println(Arrays.toString(arr));
+//        System.out.println(Arrays.toString(res));
+        // Example prices over 7 days
+        int[] prices = {100, 80, 60, 70, 60, 75, 85};
+        int[] spans = stockSpan(prices);
+
+        System.out.println("Prices: " + Arrays.toString(prices));
+        // Expected output: [1, 1, 1, 2, 1, 4, 6]
+        System.out.println("Spans:  " + Arrays.toString(spans));
     }
 }

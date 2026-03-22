@@ -59,24 +59,37 @@
 //    }
 //}
 //
-class Ch{
-    int x,y;
-    Ch(int x,int y){
-        this.x=x;
-        this.y=y;
+//class Ch{
+//    int x,y;
+//    Ch(int x,int y){
+//        this.x=x;
+//        this.y=y;
+//    }
+//
+//    public boolean equals(Ch ch){
+//        return this.x == ch.x && this.y == ch.y;
+//    }
+//}
+
+interface IntFace{
+    void fun();
+}
+
+class IntCheck implements IntFace{
+    @Override
+    public void fun() {
+        System.out.println("fun");
+    }
+    public void gm(){
+        System.out.println("gm");
     }
 
-    public boolean equals(Ch ch){
-        return this.x == ch.x && this.y == ch.y;
-    }
 }
 
 public class Basics2 {
     public static void main(String[] args) {
-        Integer y = 127;
-        Integer x = 127;
-        System.out.println(x==y);
-
+        IntCheck obj = new IntCheck();
+        obj.fun();
     }
 }
 //
