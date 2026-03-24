@@ -143,18 +143,17 @@ class StackLL {
 */
 
 
+public class StackImplementation {
 
-public class StackImplementation  {
-
-    public static void reverseArray(Stack<Integer> stack , int[] arr) {
-        if(arr.length == 0) {
+    public static void reverseArray(Stack<Integer> stack, int[] arr) {
+        if (arr.length == 0) {
             System.out.println("Array is empty");
             return;
         }
-        for(int i : arr) {
+        for (int i : arr) {
             stack.push(i);
         }
-        int i =0;
+        int i = 0;
         while (!stack.isEmpty()) {
             arr[i] = stack.pop();
             i++;
@@ -162,23 +161,23 @@ public class StackImplementation  {
     }
 
     public static void insertAtBottom(Stack<Integer> stack, int data) {
-        if(stack.isEmpty()) {
+        if (stack.isEmpty()) {
             stack.push(data);
         }
-       Stack<Integer> temp = new Stack<>();
-        while(!stack.isEmpty()) {
+        Stack<Integer> temp = new Stack<>();
+        while (!stack.isEmpty()) {
             temp.push(stack.pop());
         }
         stack.push(data);
-        while(!temp.isEmpty()) {
+        while (!temp.isEmpty()) {
             stack.push(temp.pop());
         }
 
     }
 
-    public static Stack<Integer> arrToStack(int[]arr) {
+    public static Stack<Integer> arrToStack(int[] arr) {
         Stack<Integer> stack = new Stack<>();
-        for(int i : arr) {
+        for (int i : arr) {
             stack.push(i);
         }
         return stack;
@@ -187,7 +186,7 @@ public class StackImplementation  {
 
     public static ArrayList<Integer> beautifyArray(int[] arr) {
         Stack<Integer> stack = new Stack<>();
-        for(int i : arr) {
+        for (int i : arr) {
             if (stack.isEmpty() || (stack.peek() >= 0 == i >= 0)) {
                 stack.push(i);
             } else {
@@ -195,7 +194,7 @@ public class StackImplementation  {
             }
         }
         ArrayList<Integer> list = new ArrayList<>();
-        while(!stack.isEmpty()) {
+        while (!stack.isEmpty()) {
             list.add(stack.pop());
         }
         Collections.reverse(list);
@@ -204,18 +203,16 @@ public class StackImplementation  {
 
     public static boolean validParentheses(String str) {
         Stack<Character> stack = new Stack<>();
-        for(int i = 0; i < str.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
-            if(ch == '('){
+            if (ch == '(') {
                 stack.push(ch);
-            }
-            else if(ch == ')'){
-              if(stack.isEmpty()){
-                  return false;
-              }
-              stack.pop();
-            }
-            else{
+            } else if (ch == ')') {
+                if (stack.isEmpty()) {
+                    return false;
+                }
+                stack.pop();
+            } else {
                 break;
             }
         }
@@ -258,8 +255,7 @@ public class StackImplementation  {
             char ch = str.charAt(i);
             if (ch == '(' || ch == '[' || ch == '{') {
                 stack.push(ch);
-            }
-            else {
+            } else {
                 if (stack.isEmpty()) {
                     return false;
                 } else if (ch == ')' && stack.peek() == '(') {
@@ -285,7 +281,7 @@ public class StackImplementation  {
         for (int i = 0; i < str.length(); i++) {
             char ch = str.charAt(i);
             if (map.containsKey(ch)) {
-                char top= stack.isEmpty() ? '#' : stack.pop();
+                char top = stack.isEmpty() ? '#' : stack.pop();
                 if (top != map.get(ch)) {
                     return false;
                 }
@@ -299,12 +295,12 @@ public class StackImplementation  {
     public static boolean backStrCheck(String s1, String s2) {
         Stack<Character> stack1 = new Stack<>();
         Stack<Character> stack2 = new Stack<>();
-        String s1f=pushValid(s1, stack1);
-        String s2f=pushValid(s2, stack2);
+        String s1f = pushValid(s1, stack1);
+        String s2f = pushValid(s2, stack2);
         return s1f.equals(s2f);
     }
 
-    private static String  pushValid(String s, Stack<Character> stack) {
+    private static String pushValid(String s, Stack<Character> stack) {
         for (int i = 0; i < s.length(); i++) {
             char ch = s.charAt(i);
             if (ch == '#') {
@@ -367,15 +363,13 @@ public class StackImplementation  {
             if (ch == '(') {
                 result.append(count);
                 stack.push(count++);
-            }
-            else if (ch == ')') {
+            } else if (ch == ')') {
                 if (!stack.isEmpty()) {
                     result.append(stack.pop());
                 } else {
                     return "Invalid bracket"; // Caught an extra closing bracket
                 }
-            }
-            else {
+            } else {
                 result.append(ch);
             }
         }
@@ -416,34 +410,34 @@ public class StackImplementation  {
     }
 
     public static int[] nextGreaterElement(int[] arr) {
-        int[]res = new int[arr.length];
-        ngeSB(res,arr);
+        int[] res = new int[arr.length];
+        ngeSB(res, arr);
         return res;
     }
 
-    private static void ngeSB(int[] res,int[] arr){
+    private static void ngeSB(int[] res, int[] arr) {
         Stack<Integer> stack = new Stack<>();
-        for(int i=0;i<arr.length ;i++){
-            while(!stack.isEmpty() && (arr[stack.peek()]<arr[i])) {
-                res[stack.peek()]=arr[i];
+        for (int i = 0; i < arr.length; i++) {
+            while (!stack.isEmpty() && (arr[stack.peek()] < arr[i])) {
+                res[stack.peek()] = arr[i];
                 stack.pop();
             }
-            res[i]=-1;
+            res[i] = -1;
             stack.push(i);
         }
     }
 
     public static int[] nextSmallerElement(int[] arr) {
-        int[]res = new int[arr.length];
-        nseSB(res,arr);
+        int[] res = new int[arr.length];
+        nseSB(res, arr);
         return res;
     }
 
-    private static void nseSB(int[] res,int[] arr){
+    private static void nseSB(int[] res, int[] arr) {
         Stack<Integer> stack = new Stack<>();
-        for(int i=0;i<arr.length;i++){
-            while(!stack.isEmpty() && (arr[stack.peek()]>=arr[i])) {
-                res[stack.peek()]=arr[i];
+        for (int i = 0; i < arr.length; i++) {
+            while (!stack.isEmpty() && (arr[stack.peek()] >= arr[i])) {
+                res[stack.peek()] = arr[i];
                 stack.pop();
             }
             stack.push(i);
@@ -451,12 +445,12 @@ public class StackImplementation  {
     }
 
     public static int[] nextSmallerFromLeftElement(int[] arr) {
-        int[]res = new int[arr.length];
-        nseleftSB(res,arr);
+        int[] res = new int[arr.length];
+        nseleftSB(res, arr);
         return res;
     }
 
-    private static void nseleftSB(int[] res,int[] arr){
+    private static void nseleftSB(int[] res, int[] arr) {
         /*This implementation checks literally from left, though it's correct we have to change the logic which differs from the above logic.
         We can use the above logic to solve this question also, we just need to check the array from behind rather than start.
         Stack<Integer> stack = new Stack<>();
@@ -471,9 +465,9 @@ public class StackImplementation  {
         }
          */
         Stack<Integer> stack = new Stack<>();
-        for(int i=arr.length-1;i>=0;i--){
-            while(!stack.isEmpty() && (arr[i]<arr[stack.peek()])){
-                res[stack.peek()]=arr[i];
+        for (int i = arr.length - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && (arr[i] < arr[stack.peek()])) {
+                res[stack.peek()] = arr[i];
                 stack.pop();
             }
             stack.push(i);
@@ -512,14 +506,73 @@ public class StackImplementation  {
         return spans;
     }
 
+    public static int largestRect(int[] arr) {
+        int n = arr.length;
+        int left = 0, right = 0;
+        int[] rightMax = new int[n];
+        int[] leftMax = new int[n];
+        Stack<Integer> stack = new Stack<>();
+        //next smallest right
+        for(int i = 0; i < n; i++){
+
+            while (!stack.isEmpty() && arr[i] < arr[stack.peek()]){
+                rightMax[stack.peek()] = i;
+                stack.pop();
+            }
+            stack.push(i);
+        }
+        while (!stack.isEmpty()) rightMax[stack.pop()] = n;
+        stack.clear();
+        //next smallest left neighbor
+        for(int i=arr.length-1;i>=0;i--){
+            while(!stack.isEmpty() && arr[i] < arr[stack.peek()]){
+                leftMax[stack.peek()] = i;
+                stack.pop();
+            }
+            stack.push(i);
+        }
+        while (!stack.isEmpty()) leftMax[stack.pop()] = -1;
+        int maxArea = 0;
+        for (int i = 0; i < n; i++) {
+            int height = arr[i];
+            int width = rightMax[i] - leftMax[i] - 1;
+            maxArea = Math.max(maxArea, height * width);
+        }
+        return maxArea;
+    }
+
+    public static int largestRect2(int[] arr) {
+        int n = arr.length;
+        Stack<Integer> stack = new Stack<>();
+        int maxArea = 0;
+
+        for (int i = 0; i <= n; i++) {
+            // Use a virtual height of 0 at the end (i == n) to flush the stack
+            int currentHeight = (i == n) ? 0 : arr[i];
+
+            while (!stack.isEmpty() && currentHeight < arr[stack.peek()]) {
+                int h = arr[stack.pop()]; // The height of the bar we are calculating
+
+                // If stack is empty, this bar was the smallest so far
+                // Its width is the entire distance from index 0 to i
+                int w = stack.isEmpty() ? i : i - stack.peek() - 1;
+
+                maxArea = Math.max(maxArea, h * w);
+            }
+            stack.push(i);
+        }
+        return maxArea;
+    }
+
 
     public static void displayStack(Stack<Integer> stack) {
-        while(!stack.isEmpty()) {
+        while (!stack.isEmpty()) {
             System.out.println(stack.pop());
         }
         System.out.println("The stack has become empty after displaying");
     }
-    public static void main(String[] args)  {
+
+    public static void main(String[] args) {
 //        Stack<Integer> stack = new Stack<>();
 //        int[] arr = {1, 2, 3, 4, 5};
 //        reverseArray(stack, arr);
@@ -541,11 +594,15 @@ public class StackImplementation  {
 //        System.out.println(Arrays.toString(arr));
 //        System.out.println(Arrays.toString(res));
         // Example prices over 7 days
-        int[] prices = {100, 80, 60, 70, 60, 75, 85};
-        int[] spans = stockSpan(prices);
-
-        System.out.println("Prices: " + Arrays.toString(prices));
-        // Expected output: [1, 1, 1, 2, 1, 4, 6]
-        System.out.println("Spans:  " + Arrays.toString(spans));
+//
+//        int[] prices = {100, 80, 60, 70, 60, 75, 85};
+//        int[] spans = stockSpan(prices);
+//
+//        System.out.println("Prices: " + Arrays.toString(prices));
+//        Expected output: [1, 1, 1, 2, 1, 4, 6]
+//        System.out.println("Spans:  " + Arrays.toString(spans));
+        int[] arr = {2,1,5,6,2,3};
+        int max = largestRect2(arr);
+        System.out.println("The Max Rectangle Area is : "+max);
     }
 }
