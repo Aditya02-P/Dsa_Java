@@ -409,6 +409,28 @@ public class StackImplementation {
         }
     }
 
+
+    /*this below code is another implementation of popping min element without using any extra stack memory and purely
+        relies on arithmetic way storing 2 numbers in one container . For this to work there should be a bound of
+        elements that can be there inside the array, for the below code the limit is between x belongs to [1,100)  .
+     */
+
+    public static void printMinPop2(int[] arr) {
+        Stack<Integer> mimstack = new Stack<>();
+        for (int elem : arr) {
+            if (mimstack.isEmpty()) {
+                mimstack.push(elem * 100 + elem);
+            } else {
+                int min = Math.min(mimstack.peek() % 100, elem);
+                mimstack.push(elem * 100 + min);
+            }
+        }
+        while (!mimstack.isEmpty()) {
+            int currentMin = mimstack.pop() % 100;
+            System.out.println("Mim popped: " + currentMin);
+        }
+    }
+
     public static int[] nextGreaterElement(int[] arr) {
         int[] res = new int[arr.length];
         ngeSB(res, arr);
@@ -513,9 +535,9 @@ public class StackImplementation {
         int[] leftMax = new int[n];
         Stack<Integer> stack = new Stack<>();
         //next smallest right
-        for(int i = 0; i < n; i++){
+        for (int i = 0; i < n; i++) {
 
-            while (!stack.isEmpty() && arr[i] < arr[stack.peek()]){
+            while (!stack.isEmpty() && arr[i] < arr[stack.peek()]) {
                 rightMax[stack.peek()] = i;
                 stack.pop();
             }
@@ -524,8 +546,8 @@ public class StackImplementation {
         while (!stack.isEmpty()) rightMax[stack.pop()] = n;
         stack.clear();
         //next smallest left neighbor
-        for(int i=arr.length-1;i>=0;i--){
-            while(!stack.isEmpty() && arr[i] < arr[stack.peek()]){
+        for (int i = arr.length - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && arr[i] < arr[stack.peek()]) {
                 leftMax[stack.peek()] = i;
                 stack.pop();
             }
@@ -572,6 +594,78 @@ public class StackImplementation {
         System.out.println("The stack has become empty after displaying");
     }
 
+    public static int[] maxInWinBrute(int[] arr) {
+        //it has a time complexity of BigOh(n^3)
+        int n = arr.length;
+        int[] res = new int[n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - i; j++) {
+                int num = Integer.MAX_VALUE;
+                for (int k = j; k < j + i + 1; k++) {
+                    num = Math.min(num, arr[k]);
+                }
+                res[i] = Math.max(res[i], num);
+            }
+        }
+        return res;
+    }
+
+
+    public static int[] maxInWinLinear(int[] arr) {
+        int n = arr.length;
+        Stack<Integer> s = new Stack<>();
+        int[] left = new int[n];  // Stores PSE indices
+        int[] right = new int[n]; // Stores NSE indices
+
+        // Step 1: Find the Previous Smaller Element (PSE) for each arr[i]
+        for (int i = 0; i < n; i++) {
+            // Pop elements greater than or equal to current element
+            while (!s.isEmpty() && arr[s.peek()] >= arr[i]) {
+                s.pop();
+            }
+            // If stack is empty, no smaller element exists on the left
+            left[i] = s.isEmpty() ? -1 : s.peek();
+            s.push(i);
+        }
+
+        s.clear(); // Reset stack for the next pass
+
+        // Step 2: Find the Next Smaller Element (NSE) for each arr[i]
+        for (int i = n - 1; i >= 0; i--) {
+            while (!s.isEmpty() && arr[s.peek()] >= arr[i]) {
+                s.pop();
+            }
+            // If stack is empty, no smaller element exists on the right
+            right[i] = s.isEmpty() ? n : s.peek();
+            s.push(i);
+        }
+
+        // Step 3: Map elements to their maximum window sizes
+        // We use size n+1 because window sizes range from 1 to n (1-based index for now)
+        int[] res = new int[n + 1];
+        Arrays.fill(res, Integer.MIN_VALUE);
+
+        for (int i = 0; i < n; i++) {
+            int len = right[i] - left[i] - 1; // Calculate max window size for arr[i]
+            res[len] = Math.max(res[len], arr[i]);
+        }
+
+        // Step 4: Fill in the gaps (The cascading step)
+        // Some window sizes might not have been updated directly.
+        for (int i = n - 1; i >= 1; i--) {
+            res[i] = Math.max(res[i], res[i + 1]);
+        }
+
+        // Convert the 1-based index array back to the expected 0-based result format
+        int[] finalRes = new int[n];
+        for (int i = 1; i <= n; i++) {
+            finalRes[i - 1] = res[i];
+        }
+
+        return finalRes;
+    }
+
+
     public static void main(String[] args) {
 //        Stack<Integer> stack = new Stack<>();
 //        int[] arr = {1, 2, 3, 4, 5};
@@ -601,8 +695,9 @@ public class StackImplementation {
 //        System.out.println("Prices: " + Arrays.toString(prices));
 //        Expected output: [1, 1, 1, 2, 1, 4, 6]
 //        System.out.println("Spans:  " + Arrays.toString(spans));
-        int[] arr = {2,1,5,6,2,3};
-        int max = largestRect2(arr);
-        System.out.println("The Max Rectangle Area is : "+max);
+//        int max = largestRect2(arr);
+//        System.out.println("The Max Rectangle Area is : "+max);
+        int[] arr = {2, 1, 5, 6, 2, 3};
+        System.out.println(Arrays.toString(maxInWinBrute(arr)));
     }
 }
