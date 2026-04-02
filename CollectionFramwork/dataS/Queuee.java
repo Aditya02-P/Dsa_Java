@@ -12,7 +12,7 @@ class Q{
 
     public void enqueu(int val) {
         // 1. Check for Overflow
-        if (this.rear == arr.length - 1) {
+        if (isFull()) {
             System.out.println("Queue is Full");
             return;
         }
@@ -25,7 +25,7 @@ class Q{
 
     public int deque() {
         // 1. Check for Underflow
-        if (this.front == -1 || this.front > this.rear) {
+        if (isEmpty()) {
             System.out.println("The Queue is Empty");
             // Reset pointers if queue becomes empty
             this.front = this.rear = -1;
@@ -56,6 +56,54 @@ class Q{
         return this.front == -1;
     }
 
+}
+
+class CQ {
+    int front, rear, size;
+    int[] arr;
+
+    CQ(int size) {
+        this.arr = new int[size];
+        this.size = size;
+        this.front = -1;
+        this.rear = -1;
+    }
+
+    boolean isEmpty() {
+        return this.front == -1;
+    }
+
+    public boolean isFull() {
+        return (this.rear + 1) % size == this.front;
+    }
+
+    public void enqueu(int val) {
+        if (isFull()) {
+            System.out.println("Queue is Full");
+            return;
+        }
+        if (isEmpty()) {
+            this.front = 0;
+        }
+        this.rear = (this.rear + 1) % size;
+        this.arr[this.rear] = val;
+    }
+
+    public int deque() {
+        if (isEmpty()) {
+            System.out.println("The Queue is Empty");
+            return -1;
+        }
+
+        int val = this.arr[this.front];
+
+        if (this.front == this.rear) {
+            this.front = this.rear = -1;
+        } else {
+            this.front = (this.front + 1) % size;
+        }
+        return val;
+    }
 }
 
 public class Queuee {
