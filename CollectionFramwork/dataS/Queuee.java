@@ -1,5 +1,9 @@
 package dataS;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+import java.util.Stack;
+
 class Q{
     int[]arr;
     int front;
@@ -69,6 +73,18 @@ class CQ {
         this.rear = -1;
     }
 
+    public int cqSize() {
+        if (this.front == -1) {
+            return 0;
+        }
+        if (this.front <= this.rear) {
+            return this.rear - this.front + 1;
+        } else {
+            return (this.size - (this.front - this.rear - 1));
+        }
+    }
+
+
     boolean isEmpty() {
         return this.front == -1;
     }
@@ -104,20 +120,116 @@ class CQ {
         }
         return val;
     }
+
+    /*
+    public void printCQ() {
+        if (isEmpty()) {
+            System.out.println("The Queue is Empty");
+            return;
+        }
+        int size = cqSize();
+        while(size != 0){
+            System.out.println(this.arr[this.front]);
+            enqueu(deque());
+            size--;
+        }
+    }
+     */
+
+    public void printCQ() {
+        if (isEmpty()) {
+            System.out.println("The Queue is Empty");
+            return;
+        }
+
+        int count = cqSize();
+        int currentIdx = this.front; // Start temporary pointer at the front
+
+        for (int i = 0; i < count; i++) {
+            System.out.println(this.arr[currentIdx]);
+            currentIdx = (currentIdx + 1) % this.size;
+        }
+    }
+
+    public void reveresCQ() {
+        if (isEmpty()) {
+            System.out.println("The Queue is Empty");
+            return;
+        }
+        Stack<Integer> stack = new Stack<>();
+        while(!this.isEmpty()) {
+            stack.push(this.deque());
+        }
+        while (!stack.isEmpty()) {
+            this.enqueu(stack.pop());
+        }
+    }
+
+    public void reverseFKCq(int k) {
+        if(k>cqSize()){
+            System.out.println("Invalid K");
+            return;
+        }
+        if (isEmpty()) {
+            System.out.println("The Queue is Empty");
+            return;
+        }
+        Stack<Integer> stack = new Stack<>();
+        while(k>0){
+            stack.push(this.deque());
+            k--;
+        }
+        int n = this.cqSize();
+        while(!stack.isEmpty()){
+            this.enqueu(stack.pop());
+        }
+        while(n>0){
+            this.enqueu(this.deque());
+            n--;
+        }
+    }
 }
+
+class QueueStack{
+    Stack<Integer> stack1 = new Stack<>();
+    Stack<Integer> stack2 = new Stack<>();
+    QueueStack(){}
+    public boolean isempty() {
+        return stack1.isEmpty() && stack2.isEmpty();
+    }
+    public void  push(int val){
+        stack1.push(val);
+    }
+    public int pop(){
+        if(isempty()){
+            System.out.println("Queue is Empty");
+            return -1;
+        }
+        if(stack2.isEmpty()){
+            while(!stack1.isEmpty()){
+                stack2.push(stack1.pop());
+            }
+        }
+
+        return stack2.pop();
+    }
+}
+
 
 public class Queuee {
     public static void main(String[] args) {
-        Q q = new Q(10);
-        q.enqueu(10);
-        q.enqueu(20);
-        q.enqueu(30);
-        q.enqueu(40);
-        q.enqueu(50);
-        q.enqueu(60);
-        System.out.println(q.deque());
-        System.out.println(q.deque());
-        System.out.println(q.deque());
-        System.out.println(q.deque());
+        CQ cq = new CQ(10);
+        cq.enqueu(1);
+        cq.enqueu(2);
+        cq.enqueu(3);
+        cq.enqueu(4);
+        cq.enqueu(5);
+//        cq.printCQ();
+//        cq.reveresCQ();
+//        cq.printCQ();
+        cq.reverseFKCq(2);
+        cq.printCQ();
+
+
     }
 }
