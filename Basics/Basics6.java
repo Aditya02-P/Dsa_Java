@@ -23,12 +23,14 @@ public class Basics6 {
 //        System.out.println(list);
 
 
-        Set<Integer> set = new HashSet<>();
+        Set<Integer> set = new TreeSet<>();
         set.add(1);
         set.add(2);
         set.add(3);
         set.add(23);
         set.add(5);
+
+
 
 
     }
