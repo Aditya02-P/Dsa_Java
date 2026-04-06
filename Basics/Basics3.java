@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Scanner;
 
 class AC implements Cloneable {
@@ -51,7 +52,9 @@ public class Basics3 {
         String a;
         Scanner sc = new Scanner(System.in);
         a=sc.nextLine();
-        System.out.println(a==b);
+        System.out.println(Objects.equals(a, b));
+        DaysOfWeek[]arr=DaysOfWeek.values();
+
 
     }
 }
