@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.*;
 
 class Student implements Comparable<Student> {
     String name;
@@ -50,8 +51,14 @@ public class CompInterface {
         students.add(new Student("Ravi", 10, 76.6));
         students.sort((a,b)-> (int) (b.marks- a.marks));
         // Display all students
-        for (Student s : students) {
-            s.displayStudent();
-        }
+//        for (Student s : students) {
+//            s.displayStudent();
+//        }
+        Consumer<Student> c = student -> {
+            System.out.println(student.name + " " + student.rollNumber + " " + student.marks);
+        };
+        Student ss = students.get(0);
+        c.accept(ss);
+
     }
 }
