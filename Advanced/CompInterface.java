@@ -49,16 +49,18 @@ public class CompInterface {
         students.add(new Student("Vikram", 8, 69.4));
         students.add(new Student("Neha", 9, 90.0));
         students.add(new Student("Ravi", 10, 76.6));
-        students.sort((a,b)-> (int) (b.marks- a.marks));
+//        students.sort((a,b)-> (int) (b.marks- a.marks));
         // Display all students
 //        for (Student s : students) {
 //            s.displayStudent();
 //        }
+        students.sort(new sortByName());
         Consumer<Student> c = student -> {
             System.out.println(student.name + " " + student.rollNumber + " " + student.marks);
         };
-        Student ss = students.get(0);
-        c.accept(ss);
+//        Student ss = students.getFirst();
+//        c.accept(ss);
+        students.forEach(c);
 
     }
 }

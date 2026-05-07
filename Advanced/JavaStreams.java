@@ -24,6 +24,6 @@ public class JavaStreams {
 
 // The terminal operation triggers the flow.
         List<String> result = pipeline.toList();
-
+    
     }
 }
